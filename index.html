@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HESSE SMART TRADER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080a0e;color:#fff;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:22px 18px;background:#11151c;
+ border-bottom:1px solid #bd963c;
+}
+.logo{color:#e5b94e;font-size:22px;font-weight:bold}
+.logo span{display:block;color:#aaa;font-size:11px;letter-spacing:3px}
+main{padding:18px;max-width:850px;margin:auto}
+h2{font-size:19px}
+.card{
+ background:#131923;padding:17px;
+ border:1px solid #282f3b;border-radius:12px;
+ margin-bottom:15px;
+}
+.label{color:#9ba5b5;font-size:12px}
+.value{font-size:25px;font-weight:bold;margin-top:9px}
+.gold{color:#e5b94e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select{
+ width:100%;padding:13px;margin-top:8px;
+ background:#090e16;color:white;
+ border:1px solid #343e4d;border-radius:7px;
+}
+button{
+ padding:13px;border:0;border-radius:7px;
+ font-weight:bold;cursor:pointer;
+}
+.primary{background:#d6a83e;color:#111;width:100%}
+.danger{background:#9f3030;color:white;width:100%}
+.muted{color:#9ba5b5;font-size:12px;line-height:1.5}
+.status{color:#e5b94e;font-weight:bold}
+nav{
+ display:flex;gap:10px;overflow:auto;margin-bottom:18px;
+}
+nav button{background:#202936;color:white;white-space:nowrap}
+footer{text-align:center;color:#777;padding:25px;font-size:11px}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">
+ HESSE SMART TRADER
+ <span>INTELLIGENT TRADING MANAGEMENT</span>
+ </div>
+</header>
+
+<main>
+
+<h2>Trading Overview</h2>
+
+<nav>
+ <button onclick="showSection('overview')">Overview</button>
+ <button onclick="showSection('accounts')">Accounts</button>
+ <button onclick="showSection('settings')">Settings</button>
+</nav>
+
+<section id="overview">
+
+<div class="grid">
+ <div class="card">
+  <div class="label">Account Balance</div>
+  <div class="value">$0.00</div>
+ </div>
+
+ <div class="card">
+  <div class="label">Total Profit</div>
+  <div class="value gold">$0.00</div>
+ </div>
+
+ <div class="card">
+  <div class="label">Open Trades</div>
+  <div class="value">0</div>
+ </div>
+
+ <div class="card">
+  <div class="label">System Status</div>
+  <div class="value status">DEMO MODE</div>
+ </div>
+</div>
+
+<div class="card">
+ <h2>Trading Control</h2>
+ <p class="muted">Execution is currently disabled. These buttons are demonstration controls only.</p>
+
+ <label class="label">Trading Strategy</label>
+ <select id="strategy">
+  <option>Scalping</option>
+  <option>Swing Trading</option>
+ </select>
+
+ <label class="label">Market</label>
+ <select id="market">
+  <option>Forex</option>
+  <option>Gold (XAUUSD)</option>
+  <option>Bitcoin (BTCUSD)</option>
+ </select>
+
+ <label class="label">Lot Size</label>
+ <input type="number" value="0.01" step="0.01" min="0.01">
+
+ <label class="label">Take Profit (USD)</label>
+ <input type="number" value="20">
+
+ <label class="label">Maximum Daily Loss (USD)</label>
+ <input type="number" value="10">
+
+ <br><br>
+ <button class="primary" onclick="alert('Demo only. MT5 execution is not connected.')">
+ START DEMO
+ </button>
+ <br><br>
+ <button class="danger" onclick="alert('Demo system stopped.')">
+ EMERGENCY STOP
+ </button>
+</div>
+
+</section>
+
+<section id="accounts" style="display:none">
+ <div class="card">
+  <h2>MT5 Accounts</h2>
+  <p class="muted">No trading accounts connected yet.</p>
+  <label class="label">Account Display Name</label>
+  <input id="accountName" placeholder="My Demo Account">
+  <button class="primary" onclick="addAccount()">ADD ACCOUNT</button>
+  <div id="accountList"></div>
+ </div>
+
+ <div class="card">
+  <h2>Account Management</h2>
+  <p class="muted">Independent accounts and master/slave copying will be configured when the secure MT5 bridge is developed.</p>
+ </div>
+</section>
+
+<section id="settings" style="display:none">
+ <div class="card">
+  <h2>System Settings</h2>
+  <p>Project: <span class="gold">HESSE SMART TRADER</span></p>
+  <p>Platform: Mobile Web Dashboard</p>
+  <p>Mode: Demo</p>
+  <p>Broker Connection: Not connected</p>
+  <p>Automated Execution: Disabled</p>
+ </div>
+</section>
+
+<footer>
+ HESSE SMART TRADER © 2026<br>
+ Demo interface – Not connected to a broker.
+</footer>
+
+</main>
+
+<script>
+function showSection(id){
+ document.querySelectorAll('main section').forEach(s=>{
+  s.style.display='none';
+ });
+ document.getElementById(id).style.display='block';
+}
+
+function addAccount(){
+ let name=document.getElementById('accountName').value.trim();
+ if(!name)return alert('Enter an account name');
+ let item=document.createElement('p');
+ item.textContent=name+' — Not connected';
+ document.getElementById('accountList').appendChild(item);
+ document.getElementById('accountName').value='';
+}
+</script>
+
+</body>
+</html>
