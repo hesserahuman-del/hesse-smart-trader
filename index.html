@@ -132,9 +132,20 @@ footer{text-align:center;color:#777;padding:25px;font-size:11px}
 <section id="accounts" style="display:none">
  <div class="card">
   <h2>MT5 Accounts</h2>
-  <p class="muted">No trading accounts connected yet.</p>
-  <label class="label">Account Display Name</label>
-  <input id="accountName" placeholder="My Demo Account">
+<label class="label">Select Broker</label>
+<select id="accountBroker">
+    <option value="Exness">Exness</option>
+    <option value="Deriv">Deriv</option>
+    <option value="HFM">HFM</option>
+ <option value="Headway">Headway</option>
+    <option value="IC Markets">IC Markets</option>
+</select>
+
+<label class="label">Account Display Name</label>
+<input id="accountName" placeholder="My Demo Account">
+
+<label class="label">Broker Server</label>
+<input id="accountServer" placeholder="Example: Exness-Demo">
   <button class="primary" onclick="addAccount()">ADD ACCOUNT</button>
   <div id="accountList"></div>
  </div>
