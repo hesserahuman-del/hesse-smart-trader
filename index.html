@@ -190,13 +190,53 @@ function showSection(id){
  document.getElementById(id).style.display='block';
 }
 
-function addAccount(){
- let name=document.getElementById('accountName').value.trim();
- if(!name)return alert('Enter an account name');
- let item=document.createElement('p');
- item.textContent=name+' — Not connected';
- document.getElementById('accountList').appendChild(item);
- document.getElementById('accountName').value='';
+async function addAccount(){
+
+    const broker = document.getElementById("accountBroker").value;
+    const name = document.getElementById("accountName").value.trim();
+    const server = document.getElementById("accountServer").value.trim();
+
+    if(!name){
+        alert("Enter account name");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "https://hesse-smart-trader.onrender.com/api/accounts",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    broker: broker,
+                    label: name,
+                    server: server,
+                    account_type: "DEMO"
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(data.detail || "Account registration failed");
+        }
+
+        alert("Demo account added successfully!");
+
+        document.getElementById("accountName").value = "";
+        document.getElementById("accountServer").value = "";
+
+        loadAccounts();
+
+    } catch(error) {
+
+        alert("Connection error: " + error.message);
+
+    }
  }
  async function updateSystemStatus() {
     const statusElement = document.getElementById("systemMode");
