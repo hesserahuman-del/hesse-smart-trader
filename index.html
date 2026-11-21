@@ -339,6 +339,100 @@ async function loadAccounts(){
 }
 
 }
+ async function loadAccounts(){
+
+    const accountList = document.getElementById("accountList");
+
+    try {
+
+        const response = await fetch(
+            "https://hesse-smart-trader.onrender.com/api/accounts"
+        );
+
+        if(!response.ok){
+            throw new Error("Could not load accounts");
+        }
+
+        const data = await response.json();
+
+        accountList.innerHTML = "";
+
+        if(data.accounts.length === 0){
+            accountList.textContent = "No demo accounts registered yet.";
+            return;
+        }
+
+        data.accounts.forEach(account => {
+
+            const item = document.createElement("div");
+
+            item.style.padding = "12px";
+            item.style.marginTop = "10px";
+            item.style.background = "#202b3b";
+            item.style.borderRadius = "8px";
+
+            const details = document.createElement("div");
+
+            details.textContent =
+                account.broker + " | " +
+                account.label + " | " +
+                account.account_type + " | " +
+                account.status;
+
+            item.appendChild(details);
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete Account";
+            deleteButton.style.marginTop = "10px";
+            deleteButton.style.padding = "8px";
+            deleteButton.style.background = "#dc3545";
+            deleteButton.style.color = "white";
+            deleteButton.style.border = "none";
+            deleteButton.style.borderRadius = "5px";
+
+            deleteButton.onclick = async function(){
+
+                if(!confirm("Are you sure you want to delete this account?")){
+                    return;
+                }
+
+                try {
+
+                    const deleteResponse = await fetch(
+                        "https://hesse-smart-trader.onrender.com/api/accounts/" + account.id,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+                    if(!deleteResponse.ok){
+                        throw new Error("Could not delete account");
+                    }
+
+                    alert("Account deleted successfully!");
+
+                    loadAccounts();
+
+                } catch(error) {
+
+                    alert("Delete error: " + error.message);
+
+                }
+            };
+
+            item.appendChild(deleteButton);
+            accountList.appendChild(item);
+
+        });
+
+    } catch(error) {
+
+        accountList.textContent = "Unable to load accounts.";
+        console.error(error);
+
+    }
+ }
  async function updateSystemStatus() {
     const statusElement = document.getElementById("systemMode");
 
