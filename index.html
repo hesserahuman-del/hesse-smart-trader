@@ -4,424 +4,417 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08090c">
-
 <title>HESSE SMART TRADER</title>
 
 <style>
 :root {
-    --bg: #08090c;
-    --panel: #111318;
-    --panel2: #171a21;
-    --gold: #d6ad55;
-    --gold-light: #f0cd7c;
-    --text: #f5f5f5;
-    --muted: #9297a3;
-    --red: #ed5b62;
-    --border: #292c34;
+    --bg:#08090c;
+    --panel:#111318;
+    --panel2:#191c24;
+    --gold:#d6ad55;
+    --goldlight:#f0cd7c;
+    --text:#f5f5f5;
+    --muted:#9297a3;
+    --red:#ed5b62;
+    --border:#292c34;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing:border-box; }
 
 body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-    padding-bottom: 100px;
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+    padding-bottom:100px;
 }
 
-button, input, select {
-    font: inherit;
-}
+button,input,select { font:inherit; }
 
 header {
-    padding: 25px 18px 18px;
-    border-bottom: 1px solid var(--border);
-    background: #0d0f14;
+    padding:24px 18px 18px;
+    background:#0d0f14;
+    border-bottom:1px solid var(--border);
 }
 
 .brand {
-    font-size: 23px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:1px;
 }
 
-.brand span {
-    color: var(--gold);
-}
+.brand span { color:var(--gold); }
 
 .subtitle {
-    margin-top: 7px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
+    margin-top:7px;
+    font-size:10px;
+    letter-spacing:2px;
+    color:var(--muted);
 }
 
 .container {
-    width: 100%;
-    max-width: 850px;
-    margin: auto;
-    padding: 18px 15px;
+    max-width:850px;
+    margin:auto;
+    padding:18px 15px;
 }
 
+/* DEMO WARNING */
+
 .demo-warning {
-    background: #211b10;
-    border: 1px solid #80652e;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 20px;
+    background:#211b10;
+    border:1px solid #80652e;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:20px;
 }
 
 .warning-title {
-    color: var(--gold-light);
-    font-weight: bold;
-    font-size: 13px;
-    margin-bottom: 7px;
+    color:var(--goldlight);
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
 .demo-warning p {
-    color: #c8bd9f;
-    font-size: 12px;
-    line-height: 1.6;
-    margin: 0;
+    color:#c8bd9f;
+    font-size:12px;
+    line-height:1.6;
+    margin:0;
 }
 
-.section {
-    display: none;
+/* PAGE NAVIGATION */
+
+.page {
+    display:none;
+    width:100%;
 }
 
-.section.active {
-    display: block;
+.page.active {
+    display:block;
 }
 
 .section-heading {
-    font-size: 17px;
-    margin: 8px 0 15px;
+    font-size:18px;
+    margin:8px 0 15px;
 }
 
 .section-description {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin: -7px 0 17px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin-bottom:17px;
 }
 
+/* DASHBOARD CARDS */
+
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    margin-bottom:18px;
 }
 
 .stat-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 16px 13px;
-    min-height: 112px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:16px 13px;
+    min-height:112px;
 }
 
 .stat-label {
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 13px;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:13px;
 }
 
 .stat-value {
-    font-size: 21px;
-    font-weight: bold;
-    color: var(--gold-light);
-    margin-bottom: 7px;
-    overflow-wrap: anywhere;
+    color:var(--goldlight);
+    font-size:21px;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
 .stat-note {
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.4;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.4;
 }
 
 .card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 17px;
-    margin-bottom: 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:17px;
+    margin-bottom:16px;
 }
 
 .card-title {
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 7px;
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
 
 .card-note {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.5;
-    margin-bottom: 16px;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:15px;
 }
 
 .status-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 15px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin:15px 0;
 }
 
 .badge {
-    background: #292c34;
-    color: var(--muted);
-    padding: 7px 11px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: bold;
+    background:#292c34;
+    color:var(--muted);
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
 }
 
 .badge.off {
-    color: var(--red);
-    background: #321b20;
+    background:#321b20;
+    color:var(--red);
 }
 
 .badge.demo {
-    color: var(--gold-light);
-    background: #352a16;
+    background:#352a16;
+    color:var(--goldlight);
 }
 
 .button-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    display:flex;
+    gap:10px;
+    margin-top:15px;
 }
 
 .btn {
-    border: none;
-    border-radius: 8px;
-    padding: 12px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 12px;
-}
-
-.btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    border:0;
+    border-radius:8px;
+    padding:12px 15px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
 }
 
 .btn-gold {
-    background: var(--gold);
-    color: #111;
+    background:var(--gold);
+    color:#111;
 }
 
 .btn-red {
-    background: #76252b;
-    color: white;
+    background:#76252b;
+    color:white;
 }
 
 .btn-full {
-    width: 100%;
+    width:100%;
 }
 
-.market-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+.btn:disabled {
+    opacity:.5;
 }
 
-.market-item {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 13px;
-    font-size: 12px;
-}
-
-.market-item span {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    margin-top: 6px;
-}
+/* FORMS */
 
 label {
-    display: block;
-    font-size: 11px;
-    color: var(--muted);
-    margin: 13px 0 7px;
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin:14px 0 7px;
 }
 
-input, select {
-    width: 100%;
-    padding: 12px;
-    background: #090b10;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: white;
-    outline: none;
+input,select {
+    width:100%;
+    padding:12px;
+    background:#090b10;
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:white;
+    outline:none;
 }
 
-input:focus, select:focus {
-    border-color: var(--gold);
-}
-
-.account-item {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    margin-top: 10px;
-}
-
-.account-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.account-name {
-    font-weight: bold;
-    font-size: 14px;
-    overflow-wrap: anywhere;
-}
-
-.account-details {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.7;
-    margin-top: 8px;
-}
-
-.account-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.account-actions button {
-    padding: 8px 11px;
-    font-size: 10px;
-}
-
-.empty-state {
-    padding: 25px 12px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    margin-top: 12px;
+input:focus,select:focus {
+    border-color:var(--gold);
 }
 
 .notice {
-    background: #1b1d24;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 12px;
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.6;
-    margin-top: 12px;
+    background:#1b1d24;
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:12px;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-top:12px;
 }
 
+/* MARKETS */
+
+.market-list {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+}
+
+.market-item {
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:13px;
+    font-size:12px;
+}
+
+.market-item span {
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:6px;
+}
+
+/* ACCOUNTS */
+
+.account-item {
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px;
+    margin-top:10px;
+}
+
+.account-top {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.account-name {
+    font-weight:bold;
+    font-size:14px;
+    overflow-wrap:anywhere;
+}
+
+.account-details {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.7;
+    margin-top:8px;
+}
+
+.account-actions {
+    margin-top:12px;
+}
+
+.account-actions button {
+    padding:8px 12px;
+}
+
+.empty-state {
+    padding:25px 12px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    border:1px dashed var(--border);
+    border-radius:10px;
+    margin-top:12px;
+}
+
+/* ACTIVITY */
+
 .activity-item {
-    border-bottom: 1px solid var(--border);
-    padding: 12px 0;
-    font-size: 12px;
-    line-height: 1.5;
+    border-bottom:1px solid var(--border);
+    padding:12px 0;
+    font-size:12px;
+    line-height:1.5;
 }
 
 .activity-item:last-child {
-    border-bottom: none;
+    border-bottom:none;
 }
 
 .activity-time {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    margin-top: 5px;
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:5px;
 }
 
-/* WHATSAPP CONTACT BUTTON */
+/* WHATSAPP */
 
 .whatsapp-button {
-    position: fixed;
-    right: 15px;
-    bottom: 88px;
-    z-index: 101;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #25D366;
-    color: white;
-    padding: 12px 17px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.45);
+    position:fixed;
+    right:15px;
+    bottom:88px;
+    z-index:101;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#25D366;
+    color:white;
+    padding:12px 17px;
+    border-radius:30px;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:bold;
+    box-shadow:0 4px 15px rgba(0,0,0,.45);
 }
 
-.whatsapp-button:active {
-    transform: scale(0.96);
-}
+/* BOTTOM NAVIGATION */
 
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    background: #101218;
-    border-top: 1px solid var(--border);
-    padding: 9px 3px calc(9px + env(safe-area-inset-bottom));
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:100;
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    background:#101218;
+    border-top:1px solid var(--border);
+    padding:9px 3px calc(9px + env(safe-area-inset-bottom));
 }
 
 .nav-btn {
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    padding: 5px 2px;
-    cursor: pointer;
-    font-size: 10px;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:7px 2px;
+    cursor:pointer;
+    font-size:10px;
+    min-width:0;
 }
 
 .nav-icon {
-    display: block;
-    font-size: 19px;
-    margin-bottom: 5px;
+    display:block;
+    font-size:19px;
+    margin-bottom:5px;
 }
 
 .nav-btn.active {
-    color: var(--gold);
+    color:var(--gold);
 }
 
 footer {
-    text-align: center;
-    color: #666b76;
-    font-size: 10px;
-    padding: 20px 10px;
+    text-align:center;
+    color:#666b76;
+    font-size:10px;
+    padding:20px 10px;
 }
 
-@media (max-width: 360px) {
-    .brand {
-        font-size: 20px;
-    }
-
-    .stat-value {
-        font-size: 18px;
-    }
-
-    .card {
-        padding: 14px;
-    }
+@media(max-width:360px) {
+    .brand { font-size:20px; }
+    .stat-value { font-size:18px; }
+    .card { padding:14px; }
 }
 </style>
 </head>
@@ -435,430 +428,360 @@ footer {
 
 <main class="container">
 
-    <div class="demo-warning">
-        <div class="warning-title">⚠ DEMO PROTOTYPE — TRADING DISABLED</div>
-        <p>
-            This is a demonstration dashboard. It is not connected to MetaTrader 5.
-            No real trades are being placed. Live trading will remain disabled
-            until secure MT5 integration and demo testing are completed.
-        </p>
+<div class="demo-warning">
+    <div class="warning-title">⚠ DEMO PROTOTYPE — TRADING DISABLED</div>
+    <p>
+        This is a demonstration dashboard. It is not connected to MetaTrader 5.
+        No real trades are being placed. Live trading remains disabled until
+        secure MT5 integration and demo testing are completed.
+    </p>
+</div>
+
+<!-- HOME PAGE -->
+
+<section id="home" class="page active">
+
+    <h2 class="section-heading">Dashboard Overview</h2>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-label">ACCOUNTS ADDED</div>
+            <div class="stat-value" id="accountCount">0</div>
+            <div class="stat-note">Saved demo accounts</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">TRADING ENGINE</div>
+            <div class="stat-value">OFF</div>
+            <div class="stat-note">Not connected to MT5</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">DEMO BALANCE</div>
+            <div class="stat-value">$10,000</div>
+            <div class="stat-note">Illustrative value only</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">TODAY'S P/L</div>
+            <div class="stat-value">$0.00</div>
+            <div class="stat-note">No live trading data</div>
+        </div>
+
     </div>
 
-    <!-- HOME -->
-
-    <section id="home" class="section active">
-
-        <h2 class="section-heading">Dashboard Overview</h2>
-
-        <div class="stats-grid">
-
-            <div class="stat-card">
-                <div class="stat-label">ACCOUNTS ADDED</div>
-                <div class="stat-value" id="accountCount">0</div>
-                <div class="stat-note">Saved demo accounts</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-label">TRADING ENGINE</div>
-                <div class="stat-value">OFF</div>
-                <div class="stat-note">Not connected to MT5</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-label">DEMO BALANCE</div>
-                <div class="stat-value">$10,000</div>
-                <div class="stat-note">Illustrative value only</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-label">TODAY'S P/L</div>
-                <div class="stat-value">$0.00</div>
-                <div class="stat-note">No live trading data</div>
-            </div>
-
+    <div class="card">
+        <div class="card-title">Automated Trading</div>
+        <div class="card-note">
+            Trading controls are currently in demonstration mode.
+            No orders can be sent to a broker.
         </div>
 
-        <div class="card">
-            <div class="card-title">Automated Trading</div>
-
-            <div class="card-note">
-                Trading controls are currently in demonstration mode.
-                No orders can be sent to a broker.
-            </div>
-
-            <div class="status-row">
-                <span style="font-size:12px;">Engine status</span>
-                <span class="badge off">● STOPPED</span>
-            </div>
-
-            <div class="button-row">
-                <button class="btn btn-gold btn-full" onclick="demoAction()">
-                    START DEMO
-                </button>
-
-                <button class="btn btn-red btn-full" onclick="stopDemo()">
-                    STOP
-                </button>
-            </div>
-
-            <div class="notice">
-                Start Demo only displays a demonstration notice. It does not
-                activate automated trading.
-            </div>
+        <div class="status-row">
+            <span style="font-size:12px;">Engine status</span>
+            <span class="badge off">● STOPPED</span>
         </div>
 
-        <div class="card">
-            <div class="card-title">Markets Planned</div>
-
-            <div class="card-note">
-                Markets planned for future analysis and demo integration.
-            </div>
-
-            <div class="market-list">
-                <div class="market-item">
-                    Forex
-                    <span>Major currency pairs</span>
-                </div>
-
-                <div class="market-item">
-                    Gold
-                    <span>XAU/USD</span>
-                </div>
-
-                <div class="market-item">
-                    Bitcoin
-                    <span>BTC/USD</span>
-                </div>
-
-                <div class="market-item">
-                    Indices
-                    <span>Market indices</span>
-                </div>
-            </div>
+        <div class="button-row">
+            <button class="btn btn-gold btn-full" id="startDemo">
+                START DEMO
+            </button>
+            <button class="btn btn-red btn-full" id="stopDemo">
+                STOP
+            </button>
         </div>
 
-    </section>
+        <div class="notice">
+            These buttons do not activate real or automated trading.
+        </div>
+    </div>
 
-    <!-- ACCOUNTS -->
-
-    <section id="accounts" class="section">
-
-        <h2 class="section-heading">Trading Accounts</h2>
-
-        <p class="section-description">
-            Add and manage demo accounts. Account information is saved
-            through the HESSE SMART TRADER backend.
-        </p>
-
-        <div class="card">
-
-            <div class="card-title">Add Demo Account</div>
-
-            <form id="accountForm">
-
-                <label for="broker">Broker</label>
-
-                <select id="broker" required>
-                    <option value="Exness">Exness</option>
-                    <option value="Deriv">Deriv</option>
-                    <option value="HFM">HFM</option>
-                    <option value="Headway">Headway</option>
-                    <option value="IC Markets">IC Markets</option>
-                </select>
-
-                <label for="accountLabel">Account Name</label>
-
-                <input
-                    type="text"
-                    id="accountLabel"
-                    placeholder="Example: My Demo Account"
-                    maxlength="80"
-                    required
-                >
-
-                <label for="server">Broker Server (Optional)</label>
-
-                <input
-                    type="text"
-                    id="server"
-                    placeholder="Example: Exness-MT5Trial"
-                    maxlength="100"
-                >
-
-                <label for="accountType">Account Type</label>
-
-                <select id="accountType">
-                    <option value="DEMO">DEMO</option>
-                </select>
-
-                <br><br>
-
-                <button
-                    type="submit"
-                    id="addAccountButton"
-                    class="btn btn-gold btn-full"
-                >
-                    ADD DEMO ACCOUNT
-                </button>
-
-            </form>
-
-            <div id="accountMessage" class="notice" style="display:none;"></div>
-
+    <div class="card">
+        <div class="card-title">Markets Planned</div>
+        <div class="card-note">
+            Markets planned for future analysis and demo integration.
         </div>
 
-        <div class="card">
-            <div class="card-title">Saved Accounts</div>
-
-            <div class="card-note">
-                These are accounts registered in the demo dashboard.
-                They are not connected to their brokers.
-            </div>
-
-            <div id="accountList">
-                <div class="empty-state">Loading accounts...</div>
-            </div>
+        <div class="market-list">
+            <div class="market-item">Forex<span>Major currency pairs</span></div>
+            <div class="market-item">Gold<span>XAU/USD</span></div>
+            <div class="market-item">Bitcoin<span>BTC/USD</span></div>
+            <div class="market-item">Indices<span>Market indices</span></div>
         </div>
+    </div>
 
-    </section>
+</section>
 
-    <!-- STRATEGIES -->
+<!-- ACCOUNTS PAGE -->
 
-    <section id="strategies" class="section">
+<section id="accounts" class="page">
 
-        <h2 class="section-heading">Trading Strategies</h2>
+    <h2 class="section-heading">Trading Accounts</h2>
 
-        <p class="section-description">
-            Configure the planned scalping strategy. These settings are
-            previews only and are not connected to a trading engine.
-        </p>
+    <p class="section-description">
+        Add and manage demo accounts saved through the HESSE SMART TRADER backend.
+    </p>
 
-        <div class="card">
+    <div class="card">
 
-            <div class="card-title">Scalping Strategy</div>
+        <div class="card-title">Add Demo Account</div>
 
-            <label for="scalpMode">Scalping Mode</label>
+        <form id="accountForm">
 
-            <select id="scalpMode" onchange="updateStrategyPreview()">
-                <option value="Fast">Fast Scalping</option>
-                <option value="Normal" selected>Normal Scalping</option>
-                <option value="Extended">Extended Scalping</option>
+            <label for="broker">Broker</label>
+            <select id="broker" required>
+                <option value="Exness">Exness</option>
+                <option value="Deriv">Deriv</option>
+                <option value="HFM">HFM</option>
+                <option value="Headway">Headway</option>
+                <option value="IC Markets">IC Markets</option>
             </select>
 
-            <div class="notice" id="scalpDescription">
-                Normal mode: planned holding window of 2–5 minutes.
-            </div>
+            <label for="accountLabel">Account Name</label>
+            <input id="accountLabel" type="text"
+                   placeholder="Example: My Demo Account"
+                   maxlength="80" required>
 
-            <label for="marketType">Preferred Market</label>
+            <label for="server">Broker Server (Optional)</label>
+            <input id="server" type="text"
+                   placeholder="Example: Exness-MT5Trial"
+                   maxlength="100">
 
-            <select id="marketType">
-                <option>Forex</option>
-                <option>Gold</option>
-                <option>Bitcoin</option>
-                <option>Indices</option>
+            <label for="accountType">Account Type</label>
+            <select id="accountType">
+                <option value="DEMO">DEMO</option>
             </select>
 
-            <label for="strategyType">Strategy Style</label>
+            <br><br>
 
-            <select id="strategyType">
-                <option>Trend Following</option>
-                <option>Momentum</option>
-                <option>Breakout</option>
-                <option>Market Structure</option>
-            </select>
+            <button type="submit" id="addAccountButton"
+                    class="btn btn-gold btn-full">
+                ADD DEMO ACCOUNT
+            </button>
 
-            <div class="notice">
-                These selections are currently local preview settings.
-                They do not generate signals or place trades.
-            </div>
+        </form>
 
+        <div id="accountMessage" class="notice" hidden></div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-title">Saved Accounts</div>
+        <div class="card-note">
+            These accounts are registered in the demo dashboard.
+            They are not connected to their brokers.
         </div>
 
-        <div class="card">
+        <div id="accountList">
+            <div class="empty-state">Loading accounts...</div>
+        </div>
+    </div>
 
-            <div class="card-title">Planned Strategy Safeguards</div>
+</section>
 
-            <div class="activity-item">✓ Signal confirmation before entry</div>
-            <div class="activity-item">✓ Individual stop loss and take profit</div>
-            <div class="activity-item">✓ Duplicate signal protection</div>
-            <div class="activity-item">✓ Trade cooldown controls</div>
-            <div class="activity-item">✓ Daily loss protection</div>
+<!-- STRATEGIES PAGE -->
 
+<section id="strategies" class="page">
+
+    <h2 class="section-heading">Trading Strategies</h2>
+
+    <p class="section-description">
+        Planned strategy settings. These are previews only and do not control a trading engine.
+    </p>
+
+    <div class="card">
+
+        <div class="card-title">Scalping Strategy</div>
+
+        <label for="scalpMode">Scalping Mode</label>
+
+        <select id="scalpMode">
+            <option value="Fast">Fast Scalping</option>
+            <option value="Normal" selected>Normal Scalping</option>
+            <option value="Extended">Extended Scalping</option>
+        </select>
+
+        <div class="notice" id="scalpDescription">
+            Normal mode: planned holding window of 2–5 minutes.
         </div>
 
-    </section>
+        <label for="marketType">Preferred Market</label>
+        <select id="marketType">
+            <option>Forex</option>
+            <option>Gold</option>
+            <option>Bitcoin</option>
+            <option>Indices</option>
+        </select>
 
-    <!-- RISK -->
+        <label for="strategyType">Strategy Style</label>
+        <select id="strategyType">
+            <option>Trend Following</option>
+            <option>Momentum</option>
+            <option>Breakout</option>
+            <option>Market Structure</option>
+        </select>
 
-    <section id="risk" class="section">
-
-        <h2 class="section-heading">Risk Management</h2>
-
-        <p class="section-description">
-            Planned risk-control settings for future demo testing.
-            These settings do not currently control real trading.
-        </p>
-
-        <div class="card">
-
-            <div class="card-title">Maximum Simultaneous Trades</div>
-
-            <label for="tradeProfile">Trading Risk Profile</label>
-
-            <select id="tradeProfile" onchange="updateRiskPreview()">
-                <option value="2">Conservative — 2 Trades</option>
-                <option value="5" selected>Balanced — 5 Trades</option>
-                <option value="10">Aggressive — 10 Trades</option>
-            </select>
-
-            <div class="notice" id="riskDescription">
-                Balanced profile: maximum 5 simultaneous trades (planned limit).
-            </div>
-
-            <label for="riskPerTrade">Illustrative Risk Per Trade (%)</label>
-
-            <input
-                type="number"
-                id="riskPerTrade"
-                value="1"
-                min="0.1"
-                max="5"
-                step="0.1"
-            >
-
-            <label for="dailyLoss">Illustrative Maximum Daily Loss (%)</label>
-
-            <input
-                type="number"
-                id="dailyLoss"
-                value="3"
-                min="0.1"
-                max="10"
-                step="0.1"
-            >
-
+        <div class="notice">
+            These selections are local previews. They do not generate signals or place trades.
         </div>
 
-        <div class="card">
+    </div>
 
-            <div class="card-title">Required Risk Protections</div>
+    <div class="card">
+        <div class="card-title">Planned Strategy Safeguards</div>
+        <div class="activity-item">✓ Signal confirmation before entry</div>
+        <div class="activity-item">✓ Individual stop loss and take profit</div>
+        <div class="activity-item">✓ Duplicate signal protection</div>
+        <div class="activity-item">✓ Trade cooldown controls</div>
+        <div class="activity-item">✓ Daily loss protection</div>
+    </div>
 
-            <div class="activity-item">✓ Maximum open trade limit</div>
-            <div class="activity-item">✓ Per-trade risk limits</div>
-            <div class="activity-item">✓ Total account exposure limits</div>
-            <div class="activity-item">✓ Stop-loss protection</div>
-            <div class="activity-item">✓ Daily loss limit</div>
-            <div class="activity-item">✓ Margin and duplicate-entry checks</div>
+</section>
 
-            <div class="notice">
-                Multiple trades will only be permitted in the future when
-                all risk checks pass. Unlimited position stacking will not
-                be allowed.
-            </div>
+<!-- RISK PAGE -->
 
+<section id="risk" class="page">
+
+    <h2 class="section-heading">Risk Management</h2>
+
+    <p class="section-description">
+        Planned risk-control settings for future demo testing.
+        These settings do not currently control real trading.
+    </p>
+
+    <div class="card">
+
+        <div class="card-title">Maximum Simultaneous Trades</div>
+
+        <label for="tradeProfile">Trading Risk Profile</label>
+
+        <select id="tradeProfile">
+            <option value="2">Conservative — 2 Trades</option>
+            <option value="5" selected>Balanced — 5 Trades</option>
+            <option value="10">Aggressive — 10 Trades</option>
+        </select>
+
+        <div class="notice" id="riskDescription">
+            Balanced profile: maximum 5 simultaneous trades (planned limit).
         </div>
 
-    </section>
+        <label for="riskPerTrade">Illustrative Risk Per Trade (%)</label>
+        <input type="number" id="riskPerTrade"
+               value="1" min="0.1" max="5" step="0.1">
 
-    <!-- ACTIVITY -->
+        <label for="dailyLoss">Illustrative Maximum Daily Loss (%)</label>
+        <input type="number" id="dailyLoss"
+               value="3" min="0.1" max="10" step="0.1">
 
-    <section id="activity" class="section">
+    </div>
 
-        <h2 class="section-heading">System Activity</h2>
+    <div class="card">
+        <div class="card-title">Required Risk Protections</div>
+        <div class="activity-item">✓ Maximum open trade limit</div>
+        <div class="activity-item">✓ Per-trade risk limits</div>
+        <div class="activity-item">✓ Total account exposure limits</div>
+        <div class="activity-item">✓ Stop-loss protection</div>
+        <div class="activity-item">✓ Daily loss limit</div>
+        <div class="activity-item">✓ Margin and duplicate-entry checks</div>
 
-        <p class="section-description">
-            Recent actions performed in this dashboard during the current
-            browser session.
-        </p>
+        <div class="notice">
+            Multiple trades will only be permitted when all risk checks pass.
+            Unlimited position stacking will not be allowed.
+        </div>
+    </div>
 
-        <div class="card">
+</section>
 
-            <div class="card-title">Activity History</div>
+<!-- ACTIVITY PAGE -->
 
-            <div id="activityList">
-                <div class="empty-state">No recent activity.</div>
-            </div>
+<section id="activity" class="page">
 
+    <h2 class="section-heading">System Activity</h2>
+
+    <p class="section-description">
+        Recent actions performed in this browser session.
+    </p>
+
+    <div class="card">
+        <div class="card-title">Activity History</div>
+        <div id="activityList">
+            <div class="empty-state">No recent activity.</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">System Information</div>
+
+        <div class="activity-item">
+            Project
+            <span class="activity-time">HESSE SMART TRADER</span>
         </div>
 
-        <div class="card">
-
-            <div class="card-title">System Information</div>
-
-            <div class="activity-item">
-                Project
-                <span class="activity-time">HESSE SMART TRADER</span>
-            </div>
-
-            <div class="activity-item">
-                Operating Mode
-                <span class="activity-time">DEMO</span>
-            </div>
-
-            <div class="activity-item">
-                Broker Connection
-                <span class="activity-time">NOT CONNECTED</span>
-            </div>
-
-            <div class="activity-item">
-                Trade Execution
-                <span class="activity-time">DISABLED</span>
-            </div>
-
-            <div class="activity-item">
-                Backend
-                <span class="activity-time" id="backendStatus">Checking...</span>
-            </div>
-
+        <div class="activity-item">
+            Operating Mode
+            <span class="activity-time">DEMO</span>
         </div>
 
-    </section>
+        <div class="activity-item">
+            Broker Connection
+            <span class="activity-time">NOT CONNECTED</span>
+        </div>
 
-    <footer>
-        HESSE SMART TRADER · DEMO ENVIRONMENT<br>
-        Trading execution disabled
-    </footer>
+        <div class="activity-item">
+            Trade Execution
+            <span class="activity-time">DISABLED</span>
+        </div>
+
+        <div class="activity-item">
+            Backend
+            <span class="activity-time" id="backendStatus">Checking...</span>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    HESSE SMART TRADER · DEMO ENVIRONMENT<br>
+    Trading execution disabled
+</footer>
 
 </main>
 
-<!-- WHATSAPP CONTACT -->
+<!-- WHATSAPP -->
 
-<a
-    class="whatsapp-button"
-    href="https://wa.me/256709483258"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Contact HESSE SMART TRADER on WhatsApp"
->
-    <span>☏</span>
-    WhatsApp Us
+<a class="whatsapp-button"
+   href="https://wa.me/256709483258"
+   target="_blank"
+   rel="noopener noreferrer">
+    ☎ WhatsApp Us
 </a>
 
-<!-- BOTTOM NAVIGATION -->
+<!-- NAVIGATION -->
 
-<nav class="bottom-nav">
+<nav class="bottom-nav" id="bottomNavigation">
 
-    <button class="nav-btn active" onclick="showSection('home', this)">
+    <button type="button" class="nav-btn active" data-page="home">
         <span class="nav-icon">⌂</span>
         Home
     </button>
 
-    <button class="nav-btn" onclick="showSection('accounts', this)">
+    <button type="button" class="nav-btn" data-page="accounts">
         <span class="nav-icon">▣</span>
         Accounts
     </button>
 
-    <button class="nav-btn" onclick="showSection('strategies', this)">
+    <button type="button" class="nav-btn" data-page="strategies">
         <span class="nav-icon">◈</span>
         Strategies
     </button>
 
-    <button class="nav-btn" onclick="showSection('risk', this)">
+    <button type="button" class="nav-btn" data-page="risk">
         <span class="nav-icon">◆</span>
         Risk
     </button>
 
-    <button class="nav-btn" onclick="showSection('activity', this)">
+    <button type="button" class="nav-btn" data-page="activity">
         <span class="nav-icon">◷</span>
         Activity
     </button>
@@ -866,33 +789,66 @@ footer {
 </nav>
 
 <script>
+"use strict";
 
 const API_BASE = "https://hesse-smart-trader.onrender.com";
 
 let activityEntries = [];
 
-/* NAVIGATION */
+/* RELIABLE PAGE NAVIGATION */
 
-function showSection(sectionId, button) {
+function openPage(pageId) {
 
-    document.querySelectorAll(".section").forEach(section => {
-        section.classList.remove("active");
+    const selectedPage = document.getElementById(pageId);
+
+    if (!selectedPage) {
+        return;
+    }
+
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
     });
 
-    document.getElementById(sectionId).classList.add("active");
-
-    document.querySelectorAll(".nav-btn").forEach(nav => {
-        nav.classList.remove("active");
+    document.querySelectorAll(".nav-btn").forEach(function(button) {
+        button.classList.remove("active");
     });
 
-    button.classList.add("active");
+    selectedPage.classList.add("active");
 
-    if (sectionId === "accounts" || sectionId === "home") {
+    const activeButton = document.querySelector(
+        '.nav-btn[data-page="' + pageId + '"]'
+    );
+
+    if (activeButton) {
+        activeButton.classList.add("active");
+    }
+
+    window.scrollTo(0, 0);
+
+    if (pageId === "accounts" || pageId === "home") {
         loadAccounts();
     }
 }
 
-/* ACTIVITY LOG */
+/* NAVIGATION BUTTON EVENTS */
+
+document.getElementById("bottomNavigation").addEventListener(
+    "click",
+    function(event) {
+
+        const button = event.target.closest(".nav-btn");
+
+        if (!button) {
+            return;
+        }
+
+        const pageId = button.getAttribute("data-page");
+
+        openPage(pageId);
+    }
+);
+
+/* ACTIVITY */
 
 function addActivity(message) {
 
@@ -910,6 +866,360 @@ function renderActivity() {
 
     const list = document.getElementById("activityList");
 
-    list.replaceChildren();
+    list.innerHTML = "";
 
     if (activityEntries.length === 0) {
+
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "No recent activity.";
+
+        list.appendChild(empty);
+        return;
+    }
+
+    activityEntries.forEach(function(entry) {
+
+        const item = document.createElement("div");
+        item.className = "activity-item";
+
+        const message = document.createElement("div");
+        message.textContent = entry.message;
+
+        const time = document.createElement("span");
+        time.className = "activity-time";
+        time.textContent = entry.time;
+
+        item.appendChild(message);
+        item.appendChild(time);
+
+        list.appendChild(item);
+    });
+}
+
+/* ACCOUNT MESSAGE */
+
+function showAccountMessage(message, isError) {
+
+    const box = document.getElementById("accountMessage");
+
+    box.hidden = false;
+    box.textContent = message;
+
+    box.style.borderColor = isError ? "#ed5b62" : "#80652e";
+
+    setTimeout(function() {
+        box.hidden = true;
+    }, 5000);
+}
+
+/* LOAD ACCOUNTS */
+
+async function loadAccounts() {
+
+    const list = document.getElementById("accountList");
+
+    list.textContent = "Loading accounts...";
+
+    try {
+
+        const response = await fetch(API_BASE + "/api/accounts");
+
+        if (!response.ok) {
+            throw new Error("Unable to retrieve accounts.");
+        }
+
+        const data = await response.json();
+
+        const accounts = Array.isArray(data.accounts)
+            ? data.accounts
+            : [];
+
+        document.getElementById("accountCount").textContent =
+            accounts.length;
+
+        list.innerHTML = "";
+
+        if (accounts.length === 0) {
+
+            const empty = document.createElement("div");
+            empty.className = "empty-state";
+            empty.textContent = "No demo accounts added yet.";
+
+            list.appendChild(empty);
+            return;
+        }
+
+        accounts.forEach(function(account) {
+
+            const item = document.createElement("div");
+            item.className = "account-item";
+
+            const top = document.createElement("div");
+            top.className = "account-top";
+
+            const name = document.createElement("div");
+            name.className = "account-name";
+            name.textContent = account.label || "Unnamed Account";
+
+            const badge = document.createElement("span");
+            badge.className = "badge demo";
+            badge.textContent = account.account_type || "DEMO";
+
+            top.appendChild(name);
+            top.appendChild(badge);
+
+            const details = document.createElement("div");
+            details.className = "account-details";
+
+            details.textContent =
+                "Broker: " + (account.broker || "Unknown") +
+                " | Server: " + (account.server || "Not specified") +
+                " | Status: " + (account.status || "Unknown") +
+                " | Trading: DISABLED";
+
+            const actions = document.createElement("div");
+            actions.className = "account-actions";
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-red";
+            deleteButton.textContent = "DELETE";
+
+            deleteButton.addEventListener("click", function() {
+                deleteAccount(account.id);
+            });
+
+            actions.appendChild(deleteButton);
+
+            item.appendChild(top);
+            item.appendChild(details);
+            item.appendChild(actions);
+
+            list.appendChild(item);
+        });
+
+    } catch (error) {
+
+        document.getElementById("accountCount").textContent = "—";
+
+        list.innerHTML = "";
+
+        const message = document.createElement("div");
+        message.className = "empty-state";
+        message.textContent =
+            "Could not load accounts. Check your connection and try again.";
+
+        list.appendChild(message);
+    }
+}
+
+/* ADD ACCOUNT */
+
+document.getElementById("accountForm").addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const button = document.getElementById("addAccountButton");
+
+        const broker = document.getElementById("broker").value;
+        const label = document.getElementById("accountLabel").value.trim();
+        const server = document.getElementById("server").value.trim();
+
+        if (!label) {
+            showAccountMessage("Please enter an account name.", true);
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "SAVING...";
+
+        try {
+
+            const response = await fetch(API_BASE + "/api/accounts", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    broker: broker,
+                    label: label,
+                    server: server || null,
+                    account_type: "DEMO"
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.detail || "Unable to save account.");
+            }
+
+            document.getElementById("accountForm").reset();
+
+            showAccountMessage("Demo account saved successfully.", false);
+
+            addActivity("Added demo account: " + label);
+
+            await loadAccounts();
+
+        } catch (error) {
+
+            showAccountMessage(error.message, true);
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "ADD DEMO ACCOUNT";
+        }
+    }
+);
+
+/* DELETE ACCOUNT */
+
+async function deleteAccount(accountId) {
+
+    if (!confirm("Are you sure you want to delete this demo account?")) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            API_BASE + "/api/accounts/" + encodeURIComponent(accountId),
+            { method: "DELETE" }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Unable to delete account.");
+        }
+
+        addActivity("A demo account was deleted.");
+
+        await loadAccounts();
+
+    } catch (error) {
+
+        alert(error.message);
+    }
+}
+
+/* DEMO BUTTONS */
+
+document.getElementById("startDemo").addEventListener("click", function() {
+
+    alert(
+        "HESSE SMART TRADER is in prototype mode. " +
+        "MT5 is not connected. No trades have been started."
+    );
+
+    addActivity("Demo start button selected. No trading was activated.");
+});
+
+document.getElementById("stopDemo").addEventListener("click", function() {
+
+    alert(
+        "The demo dashboard remains stopped. " +
+        "Live trading execution is disabled."
+    );
+
+    addActivity("Stop button selected.");
+});
+
+/* STRATEGY SETTINGS */
+
+document.getElementById("scalpMode").addEventListener(
+    "change",
+    function() {
+
+        const descriptions = {
+            Fast: "Fast mode: planned holding window of 30 seconds–2 minutes.",
+            Normal: "Normal mode: planned holding window of 2–5 minutes.",
+            Extended: "Extended mode: planned holding window of 5–15 minutes."
+        };
+
+        const mode = this.value;
+
+        document.getElementById("scalpDescription").textContent =
+            descriptions[mode];
+
+        addActivity("Scalping preview changed to " + mode + " mode.");
+    }
+);
+
+/* RISK SETTINGS */
+
+document.getElementById("tradeProfile").addEventListener(
+    "change",
+    function() {
+
+        const limit = this.value;
+
+        let profile = "Balanced";
+
+        if (limit === "2") {
+            profile = "Conservative";
+        }
+
+        if (limit === "10") {
+            profile = "Aggressive";
+        }
+
+        document.getElementById("riskDescription").textContent =
+            profile + " profile: maximum " + limit +
+            " simultaneous trades (planned limit).";
+
+        addActivity("Risk preview changed to " + profile + ".");
+    }
+);
+
+/* BACKEND STATUS */
+
+async function checkBackendStatus() {
+
+    const status = document.getElementById("backendStatus");
+
+    try {
+
+        const response = await fetch(API_BASE + "/health");
+
+        if (!response.ok) {
+            throw new Error("Backend unavailable");
+        }
+
+        const data = await response.json();
+
+        status.textContent =
+            data.status === "healthy"
+                ? "ONLINE — Trading disabled"
+                : "Response received";
+
+    } catch (error) {
+
+        status.textContent = "Connection unavailable";
+    }
+}
+
+/* INITIALIZE */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    loadAccounts();
+
+    checkBackendStatus();
+
+    renderActivity();
+
+});
+
+</script>
+
+</body>
+                                                                      </html>
