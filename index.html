@@ -16,6 +16,7 @@
     --text:#f5f5f5;
     --muted:#9297a3;
     --red:#ed5b62;
+    --green:#36c98a;
     --border:#292c34;
 }
 
@@ -127,6 +128,7 @@ header {
     font-size:21px;
     font-weight:bold;
     margin-bottom:7px;
+    overflow-wrap:anywhere;
 }
 
 .stat-note {
@@ -171,6 +173,7 @@ header {
     border-radius:20px;
     font-size:10px;
     font-weight:bold;
+    white-space:nowrap;
 }
 
 .badge.off {
@@ -181,6 +184,11 @@ header {
 .badge.demo {
     background:#352a16;
     color:var(--goldlight);
+}
+
+.badge.online {
+    background:#123126;
+    color:var(--green);
 }
 
 .button-row {
@@ -299,6 +307,7 @@ input:focus,select:focus {
     font-size:11px;
     line-height:1.7;
     margin-top:8px;
+    overflow-wrap:anywhere;
 }
 
 .account-actions {
@@ -407,6 +416,7 @@ footer {
     .brand { font-size:20px; }
     .stat-value { font-size:18px; }
     .card { padding:14px; }
+    .button-row { flex-wrap:wrap; }
 }
 </style>
 </head>
@@ -429,6 +439,8 @@ footer {
     </p>
 </div>
 
+<!-- HOME -->
+
 <section id="home" class="page active">
 
     <h2 class="section-heading">Dashboard Overview</h2>
@@ -437,14 +449,14 @@ footer {
 
         <div class="stat-card">
             <div class="stat-label">ACCOUNTS ADDED</div>
-            <div class="stat-value" id="accountCount">0</div>
+            <div class="stat-value" id="accountCount">—</div>
             <div class="stat-note">Saved demo accounts</div>
         </div>
 
         <div class="stat-card">
             <div class="stat-label">TRADING ENGINE</div>
             <div class="stat-value">OFF</div>
-            <div class="stat-note">Not connected to MT5</div>
+            <div class="stat-note">MT5 not connected</div>
         </div>
 
         <div class="stat-card">
@@ -462,7 +474,34 @@ footer {
     </div>
 
     <div class="card">
+
+        <div class="card-title">System Connection</div>
+
+        <div class="status-row">
+            <span style="font-size:12px;">Backend status</span>
+            <span class="badge" id="homeBackendStatus">CHECKING</span>
+        </div>
+
+        <div class="status-row">
+            <span style="font-size:12px;">Broker connection</span>
+            <span class="badge off">NOT CONNECTED</span>
+        </div>
+
+        <div class="status-row">
+            <span style="font-size:12px;">Trade execution</span>
+            <span class="badge off">DISABLED</span>
+        </div>
+
+        <button class="btn btn-gray btn-full" id="refreshDashboard">
+            REFRESH DASHBOARD
+        </button>
+
+    </div>
+
+    <div class="card">
+
         <div class="card-title">Automated Trading</div>
+
         <div class="card-note">
             Trading controls are currently in demonstration mode.
             No orders can be sent to a broker.
@@ -477,6 +516,7 @@ footer {
             <button class="btn btn-gold btn-full" id="startDemo">
                 START DEMO
             </button>
+
             <button class="btn btn-red btn-full" id="stopDemo">
                 STOP
             </button>
@@ -485,10 +525,13 @@ footer {
         <div class="notice">
             These buttons do not activate real or automated trading.
         </div>
+
     </div>
 
     <div class="card">
+
         <div class="card-title">Markets Planned</div>
+
         <div class="card-note">
             Markets planned for future analysis and demo integration.
         </div>
@@ -499,16 +542,20 @@ footer {
             <div class="market-item">Bitcoin<span>BTC/USD</span></div>
             <div class="market-item">Indices<span>Market indices</span></div>
         </div>
+
     </div>
 
 </section>
+
+<!-- ACCOUNTS -->
 
 <section id="accounts" class="page">
 
     <h2 class="section-heading">Trading Accounts</h2>
 
     <p class="section-description">
-        Add, edit and manage demo accounts saved through the HESSE SMART TRADER backend.
+        Add, edit, search, filter and manage demo accounts saved through
+        the HESSE SMART TRADER backend.
     </p>
 
     <div class="card">
@@ -555,25 +602,57 @@ footer {
     </div>
 
     <div class="card">
+
         <div class="card-title">Saved Accounts</div>
+
         <div class="card-note">
-            These accounts are registered in the demo dashboard.
-            They are not connected to their brokers.
+            Search and filter your saved demo accounts below.
+            These accounts are not connected to their brokers.
+        </div>
+
+        <label for="accountSearch">Search Accounts</label>
+        <input id="accountSearch" type="search"
+               placeholder="Search name, broker or server...">
+
+        <label for="brokerFilter">Filter by Broker</label>
+        <select id="brokerFilter">
+            <option value="ALL">All Brokers</option>
+            <option value="Exness">Exness</option>
+            <option value="Deriv">Deriv</option>
+            <option value="HFM">HFM</option>
+            <option value="Headway">Headway</option>
+            <option value="IC Markets">IC Markets</option>
+        </select>
+
+        <div class="status-row">
+            <span id="accountResultCount"
+                  style="font-size:11px;color:var(--muted);">
+                Loading accounts...
+            </span>
+
+            <button type="button" class="btn btn-gray"
+                    id="refreshAccounts">
+                REFRESH
+            </button>
         </div>
 
         <div id="accountList">
             <div class="empty-state">Loading accounts...</div>
         </div>
+
     </div>
 
 </section>
+
+<!-- STRATEGIES -->
 
 <section id="strategies" class="page">
 
     <h2 class="section-heading">Trading Strategies</h2>
 
     <p class="section-description">
-        Planned strategy settings. These are previews only and do not control a trading engine.
+        Planned strategy settings. These are previews only and do not
+        control a trading engine.
     </p>
 
     <div class="card">
@@ -609,21 +688,27 @@ footer {
         </select>
 
         <div class="notice">
-            These selections are local previews. They do not generate signals or place trades.
+            These selections are local previews. They do not generate
+            signals or place trades.
         </div>
 
     </div>
 
     <div class="card">
+
         <div class="card-title">Planned Strategy Safeguards</div>
+
         <div class="activity-item">✓ Signal confirmation before entry</div>
         <div class="activity-item">✓ Individual stop loss and take profit</div>
         <div class="activity-item">✓ Duplicate signal protection</div>
         <div class="activity-item">✓ Trade cooldown controls</div>
         <div class="activity-item">✓ Daily loss protection</div>
+
     </div>
 
 </section>
+
+<!-- RISK -->
 
 <section id="risk" class="page">
 
@@ -661,7 +746,9 @@ footer {
     </div>
 
     <div class="card">
+
         <div class="card-title">Required Risk Protections</div>
+
         <div class="activity-item">✓ Maximum open trade limit</div>
         <div class="activity-item">✓ Per-trade risk limits</div>
         <div class="activity-item">✓ Total account exposure limits</div>
@@ -673,9 +760,12 @@ footer {
             Multiple trades will only be permitted when all risk checks pass.
             Unlimited position stacking will not be allowed.
         </div>
+
     </div>
 
 </section>
+
+<!-- ACTIVITY -->
 
 <section id="activity" class="page">
 
@@ -686,13 +776,17 @@ footer {
     </p>
 
     <div class="card">
+
         <div class="card-title">Activity History</div>
+
         <div id="activityList">
             <div class="empty-state">No recent activity.</div>
         </div>
+
     </div>
 
     <div class="card">
+
         <div class="card-title">System Information</div>
 
         <div class="activity-item">
@@ -719,6 +813,7 @@ footer {
             Backend
             <span class="activity-time" id="backendStatus">Checking...</span>
         </div>
+
     </div>
 
 </section>
@@ -769,9 +864,13 @@ footer {
 <script>
 "use strict";
 
+/* CONFIGURATION */
+
 const API_BASE = "https://hesse-smart-trader.onrender.com";
 
 let activityEntries = [];
+let savedAccounts = [];
+let accountLoadInProgress = false;
 
 /* PAGE NAVIGATION */
 
@@ -867,6 +966,31 @@ function renderActivity() {
     });
 }
 
+/* SAFE JSON RESPONSE */
+
+async function readResponse(response) {
+
+    const text = await response.text();
+
+    let data = {};
+
+    if (text) {
+        try {
+            data = JSON.parse(text);
+        } catch (error) {
+            throw new Error("The server returned an invalid response.");
+        }
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            data.detail || data.message || "The server request failed."
+        );
+    }
+
+    return data;
+}
+
 /* ACCOUNT MESSAGE */
 
 function showAccountMessage(message, isError) {
@@ -877,10 +1001,146 @@ function showAccountMessage(message, isError) {
     box.textContent = message;
     box.style.borderColor = isError ? "#ed5b62" : "#80652e";
 
-    setTimeout(function() {
+    clearTimeout(box.messageTimer);
+
+    box.messageTimer = setTimeout(function() {
         box.hidden = true;
     }, 5000);
 }
+
+/* UPDATE DASHBOARD COUNT */
+
+function updateDashboardCount(count) {
+
+    document.getElementById("accountCount").textContent = count;
+}
+
+/* SEARCH AND FILTER */
+
+function renderFilteredAccounts() {
+
+    const list = document.getElementById("accountList");
+
+    const search = document.getElementById("accountSearch")
+        .value.trim().toLowerCase();
+
+    const brokerFilter = document.getElementById("brokerFilter").value;
+
+    const filtered = savedAccounts.filter(function(account) {
+
+        const label = String(account.label || "").toLowerCase();
+        const broker = String(account.broker || "").toLowerCase();
+        const server = String(account.server || "").toLowerCase();
+
+        const matchesSearch =
+            label.includes(search) ||
+            broker.includes(search) ||
+            server.includes(search);
+
+        const matchesBroker =
+            brokerFilter === "ALL" ||
+            account.broker === brokerFilter;
+
+        return matchesSearch && matchesBroker;
+    });
+
+    document.getElementById("accountResultCount").textContent =
+        filtered.length + " of " + savedAccounts.length + " accounts shown";
+
+    list.innerHTML = "";
+
+    if (savedAccounts.length === 0) {
+
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "No demo accounts added yet.";
+
+        list.appendChild(empty);
+        return;
+    }
+
+    if (filtered.length === 0) {
+
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "No accounts match your search or filter.";
+
+        list.appendChild(empty);
+        return;
+    }
+
+    filtered.forEach(function(account) {
+
+        const item = document.createElement("div");
+        item.className = "account-item";
+
+        const top = document.createElement("div");
+        top.className = "account-top";
+
+        const name = document.createElement("div");
+        name.className = "account-name";
+        name.textContent = account.label || "Unnamed Account";
+
+        const badge = document.createElement("span");
+        badge.className = "badge demo";
+        badge.textContent = account.account_type || "DEMO";
+
+        top.appendChild(name);
+        top.appendChild(badge);
+
+        const details = document.createElement("div");
+        details.className = "account-details";
+
+        details.textContent =
+            "Broker: " + (account.broker || "Unknown") +
+            " | Server: " + (account.server || "Not specified") +
+            " | Status: " + (account.status || "Unknown") +
+            " | Trading: DISABLED";
+
+        const actions = document.createElement("div");
+        actions.className = "account-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "btn btn-gold";
+        editButton.textContent = "EDIT";
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-red";
+        deleteButton.textContent = "DELETE";
+
+        const editForm = createEditForm(account);
+
+        editButton.addEventListener("click", function() {
+            editForm.classList.toggle("open");
+        });
+
+        deleteButton.addEventListener("click", function() {
+            deleteAccount(account.id);
+        });
+
+        actions.appendChild(editButton);
+        actions.appendChild(deleteButton);
+
+        item.appendChild(top);
+        item.appendChild(details);
+        item.appendChild(actions);
+        item.appendChild(editForm);
+
+        list.appendChild(item);
+    });
+}
+
+document.getElementById("accountSearch").addEventListener(
+    "input",
+    renderFilteredAccounts
+);
+
+document.getElementById("brokerFilter").addEventListener(
+    "change",
+    renderFilteredAccounts
+);
 
 /* CREATE EDIT FORM */
 
@@ -904,16 +1164,20 @@ function createEditForm(account) {
     ];
 
     brokers.forEach(function(name) {
+
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
+
         broker.appendChild(option);
     });
 
     if (!brokers.includes(account.broker)) {
+
         const option = document.createElement("option");
         option.value = account.broker;
         option.textContent = account.broker;
+
         broker.appendChild(option);
     }
 
@@ -1007,6 +1271,10 @@ function createEditForm(account) {
 
 async function loadAccounts() {
 
+    if (accountLoadInProgress) return;
+
+    accountLoadInProgress = true;
+
     const list = document.getElementById("accountList");
 
     list.textContent = "Loading accounts...";
@@ -1015,96 +1283,19 @@ async function loadAccounts() {
 
         const response = await fetch(API_BASE + "/api/accounts");
 
-        if (!response.ok) {
-            throw new Error("Unable to retrieve accounts.");
-        }
+        const data = await readResponse(response);
 
-        const data = await response.json();
-
-        const accounts = Array.isArray(data.accounts)
+        savedAccounts = Array.isArray(data.accounts)
             ? data.accounts
             : [];
 
-        document.getElementById("accountCount").textContent =
-            accounts.length;
+        updateDashboardCount(savedAccounts.length);
 
-        list.innerHTML = "";
-
-        if (accounts.length === 0) {
-
-            const empty = document.createElement("div");
-            empty.className = "empty-state";
-            empty.textContent = "No demo accounts added yet.";
-
-            list.appendChild(empty);
-            return;
-        }
-
-        accounts.forEach(function(account) {
-
-            const item = document.createElement("div");
-            item.className = "account-item";
-
-            const top = document.createElement("div");
-            top.className = "account-top";
-
-            const name = document.createElement("div");
-            name.className = "account-name";
-            name.textContent = account.label || "Unnamed Account";
-
-            const badge = document.createElement("span");
-            badge.className = "badge demo";
-            badge.textContent = account.account_type || "DEMO";
-
-            top.appendChild(name);
-            top.appendChild(badge);
-
-            const details = document.createElement("div");
-            details.className = "account-details";
-
-            details.textContent =
-                "Broker: " + (account.broker || "Unknown") +
-                " | Server: " + (account.server || "Not specified") +
-                " | Status: " + (account.status || "Unknown") +
-                " | Trading: DISABLED";
-
-            const actions = document.createElement("div");
-            actions.className = "account-actions";
-
-            const editButton = document.createElement("button");
-            editButton.type = "button";
-            editButton.className = "btn btn-gold";
-            editButton.textContent = "EDIT";
-
-            const deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.className = "btn btn-red";
-            deleteButton.textContent = "DELETE";
-
-            const editForm = createEditForm(account);
-
-            editButton.addEventListener("click", function() {
-                editForm.classList.toggle("open");
-            });
-
-            deleteButton.addEventListener("click", function() {
-                deleteAccount(account.id);
-            });
-
-            actions.appendChild(editButton);
-            actions.appendChild(deleteButton);
-
-            item.appendChild(top);
-            item.appendChild(details);
-            item.appendChild(actions);
-            item.appendChild(editForm);
-
-            list.appendChild(item);
-        });
+        renderFilteredAccounts();
 
     } catch (error) {
 
-        document.getElementById("accountCount").textContent = "—";
+        updateDashboardCount("—");
 
         list.innerHTML = "";
 
@@ -1114,8 +1305,52 @@ async function loadAccounts() {
             "Could not load accounts. Check your connection and try again.";
 
         list.appendChild(message);
+
+        document.getElementById("accountResultCount").textContent =
+            "Account connection unavailable";
+
+    } finally {
+
+        accountLoadInProgress = false;
     }
 }
+
+/* REFRESH BUTTONS */
+
+document.getElementById("refreshAccounts").addEventListener(
+    "click",
+    async function() {
+
+        this.disabled = true;
+        this.textContent = "LOADING...";
+
+        await loadAccounts();
+
+        this.disabled = false;
+        this.textContent = "REFRESH";
+
+        addActivity("Account list refreshed.");
+    }
+);
+
+document.getElementById("refreshDashboard").addEventListener(
+    "click",
+    async function() {
+
+        this.disabled = true;
+        this.textContent = "REFRESHING...";
+
+        await Promise.all([
+            loadAccounts(),
+            checkBackendStatus()
+        ]);
+
+        this.disabled = false;
+        this.textContent = "REFRESH DASHBOARD";
+
+        addActivity("Dashboard refreshed.");
+    }
+);
 
 /* ADD ACCOUNT */
 
@@ -1157,11 +1392,7 @@ document.getElementById("accountForm").addEventListener(
                 })
             });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.detail || "Unable to save account.");
-            }
+            await readResponse(response);
 
             document.getElementById("accountForm").reset();
 
@@ -1198,13 +1429,7 @@ async function updateAccount(accountId, accountData) {
         }
     );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(data.detail || "Unable to update account.");
-    }
-
-    return data;
+    return await readResponse(response);
 }
 
 /* DELETE ACCOUNT */
@@ -1222,11 +1447,7 @@ async function deleteAccount(accountId) {
             { method: "DELETE" }
         );
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.detail || "Unable to delete account.");
-        }
+        await readResponse(response);
 
         addActivity("A demo account was deleted.");
 
@@ -1309,25 +1530,35 @@ document.getElementById("tradeProfile").addEventListener(
 async function checkBackendStatus() {
 
     const status = document.getElementById("backendStatus");
+    const homeStatus = document.getElementById("homeBackendStatus");
 
     try {
 
         const response = await fetch(API_BASE + "/health");
 
-        if (!response.ok) {
-            throw new Error("Backend unavailable");
+        const data = await readResponse(response);
+
+        if (data.status === "healthy") {
+
+            status.textContent = "ONLINE — Trading disabled";
+            homeStatus.textContent = "ONLINE";
+
+            homeStatus.className = "badge online";
+
+        } else {
+
+            status.textContent = "Backend responding";
+            homeStatus.textContent = "CHECK STATUS";
+
+            homeStatus.className = "badge";
         }
-
-        const data = await response.json();
-
-        status.textContent =
-            data.status === "healthy"
-                ? "ONLINE — Trading disabled"
-                : "Response received";
 
     } catch (error) {
 
         status.textContent = "Connection unavailable";
+        homeStatus.textContent = "OFFLINE";
+
+        homeStatus.className = "badge off";
     }
 }
 
