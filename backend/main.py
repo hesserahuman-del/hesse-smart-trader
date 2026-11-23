@@ -11,8 +11,9 @@ from psycopg2.extras import RealDictCursor
 app = FastAPI(
     title="HESSE SMART TRADER",
     description="MT5 Trading Management API",
-    version="2.1.0"
+    version="2.2.0"
 )
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,7 +21,7 @@ app.add_middleware(
         "https://hesse-smart-trader.pages.dev"
     ],
     allow_credentials=False,
-    allow_methods=["GET", "POST", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Content-Type"],
 )
 
@@ -165,6 +166,58 @@ def add_account(account: Account):
         )
 
 
+@app.put("/api/accounts/{account_id}")
+def update_account(account_id: str, account: Account):
+
+    if not account.broker.strip() or not account.label.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Broker and account label are required"
+        )
+
+    if account.account_type.upper() != "DEMO":
+        raise HTTPException(
+            status_code=400,
+            detail="Only DEMO accounts are allowed"
+        )
+
+    try:
+        with get_db_connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute("""
+                    UPDATE accounts
+                    SET broker = %s,
+                        label = %s,
+                        server = %s
+                    WHERE id = %s
+                """, (
+                    account.broker.strip(),
+                    account.label.strip(),
+                    account.server,
+                    account_id
+                ))
+
+                if cursor.rowcount == 0:
+                    raise HTTPException(
+                        status_code=404,
+                        detail="Account not found"
+                    )
+
+        return {
+            "message": "Demo account updated",
+            "account_id": account_id
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Unable to update account"
+        )
+
+
 @app.delete("/api/accounts/{account_id}")
 def delete_account(account_id: str):
 
@@ -191,4 +244,4 @@ def delete_account(account_id: str):
         raise HTTPException(
             status_code=503,
             detail="Unable to delete account"
-        )
+    )
